@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from "./logo.svg";
 import ReactTooltip from "react-tooltip";
 
 import { getDictionaryEntry } from "./api";
@@ -31,21 +30,26 @@ class App extends React.Component {
   render() {
     const { definitions: defs, ipsumString } = this.state;
     const words = ipsumString.split(" ");
-    // const githubUrl = "https://github.com/Spoonlanding";
+    const githubUrl =
+      "https://github.com/Spoonlanding/affinipay-coding-challenge";
 
     return (
       <div className="App">
         <h1 id="pageHeader">Affinipay Coding Challenge</h1>
-        <h2 id="subHeader">Spencer Mitchell </h2>
+        <h2 id="subHeader">
+          Submission by Spencer Mitchell |{" "}
+          <a href={githubUrl}>View on GitHub</a>
+        </h2>
         <div id="words">
           {words.map(word => [
             <a
-              href="#"
+              href="#" // !! accessibility problem, letting it slide since this is just a demo
               className="definition-link"
               data-for="dictionaryTooltip"
               data-event="focus"
               onClick={this.handleClick}
               data-tip={word}
+              key={word}
             >
               {word}
             </a>,
@@ -57,7 +61,7 @@ class App extends React.Component {
           effect="solid"
           place="bottom"
           multiline={true}
-          getContent={word => <DefinitionCard word={word} entry={defs[word]} />}
+          getContent={word => <DefinitionCard entry={defs[word]} />}
         />
       </div>
     );
