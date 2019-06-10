@@ -15,7 +15,7 @@ export default class DictionaryEntry {
     this.found = true;
     for (const data of raw) {
       if (data.hwi.hw !== this.word) continue;
-      if (!!data.cxs) {
+      if ("cxs" in data) {
         this.buildParticipleEntry(data.cxs);
       } else {
         this.definitions.push({
@@ -27,18 +27,15 @@ export default class DictionaryEntry {
     }
   }
 
-  buildParticipleEntry(participleData) {
-    if (participleData[0].cxtis[0].cxl && participleData[0].cxtis[0].cxt) {
+  buildParticipleEntry(data) {
+    const participleData = data[0].cxtis[0];
+    if ("cxl" in participleData && "cxt" in participleData) {
       this.definitions.push({
-        shortDefs: [
-          participleData[0].cxtis[0].cxl + " " + participleData[0].cxtis[0].cxt
-        ]
+        shortDefs: [participleData.cxl + " " + participleData.cxt]
       });
-    } else if (participleData[0].cxl && participleData[0].cxtis[0].cxt) {
+    } else if ("cxl" in data[0] && "cxt" in participleData) {
       this.definitions.push({
-        shortDefs: [
-          participleData[0].cxl + " " + participleData[0].cxtis[0].cxt
-        ]
+        shortDefs: [data[0].cxl + " " + participleData.cxt]
       });
     }
   }

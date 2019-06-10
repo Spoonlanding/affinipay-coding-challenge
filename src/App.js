@@ -1,9 +1,9 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 
+import "./App.scss";
 import { getDictionaryEntry } from "./lib/api";
 import ipsumString from "./lib/ipsum";
-import "./App.scss";
 import DefinitionCard from "./components/DefinitionCard";
 
 class App extends React.Component {
@@ -20,8 +20,8 @@ class App extends React.Component {
   };
 
   async getDefinition(word) {
-    let definitions = this.state.definitions;
-    if (!!definitions[word]) return definitions[word];
+    const { definitions } = this.state;
+    if (word in definitions) return definitions[word];
     const dictionaryEntry = await getDictionaryEntry(word);
     definitions[word] = dictionaryEntry;
     this.setState({ definitions });
@@ -32,18 +32,18 @@ class App extends React.Component {
     const words = ipsumString.split(" ");
     const githubUrl =
       "https://github.com/Spoonlanding/affinipay-coding-challenge";
-
+    const linkedInUrl = "https://www.linkedin.com/in/spoonlanding/";
     return (
       <div className="App">
         <h1 id="pageHeader">Affinipay Coding Challenge</h1>
-        <h2 id="subHeader">
-          Submission by Spencer Mitchell |{" "}
+        <h3 id="subHeader">
+          Submission by <a href={linkedInUrl}>Spencer Mitchell</a> |{" "}
           <a href={githubUrl}>View on GitHub</a>
-        </h2>
+        </h3>
         <div id="words">
           {words.map(word => [
             <a
-              href="javascript:void(0);" // !! accessibility problem, letting it slide since this is just a demo
+              href="javascript:void(0);" // wouldn't want to do this in a prod application
               className="definition-link"
               data-for="dictionaryTooltip"
               data-event="focus"
@@ -60,7 +60,6 @@ class App extends React.Component {
           id="dictionaryTooltip"
           effect="solid"
           place="bottom"
-          multiline={true}
           getContent={word => <DefinitionCard entry={defs[word]} />}
         />
       </div>
