@@ -1,8 +1,8 @@
 import React from "react";
 import ReactTooltip from "react-tooltip";
 
-import { getDictionaryEntry } from "./api";
-import ipsumString from "./ipsum";
+import { getDictionaryEntry } from "./lib/api";
+import ipsumString from "./lib/ipsum";
 import "./App.scss";
 import DefinitionCard from "./components/DefinitionCard";
 
@@ -43,7 +43,7 @@ class App extends React.Component {
         <div id="words">
           {words.map(word => [
             <a
-              href="#" // !! accessibility problem, letting it slide since this is just a demo
+              href="javascript:void(0);" // !! accessibility problem, letting it slide since this is just a demo
               className="definition-link"
               data-for="dictionaryTooltip"
               data-event="focus"

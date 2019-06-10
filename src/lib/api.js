@@ -1,4 +1,4 @@
-import { API_KEY } from "./config"; // .gitgnored!
+import { API_KEY } from "../config"; // .gitgnored!
 import DictionaryEntry from "./DictionaryEntry";
 const baseUrl = "https://dictionaryapi.com/api/v3/references/collegiate/json";
 
